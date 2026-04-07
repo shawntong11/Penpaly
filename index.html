@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Penpaly — 托福邮件写作练习</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HOME PAGE -->
+  <div class="page active" id="homePage">
+    <div class="home">
+      <div class="home-header">
+        <div class="home-title">Penpaly</div>
+        <div class="home-sub">托福邮件写作练习 · 模板 + AI 批改 · TOEFL 2026 新题型</div>
+      </div>
+      <div class="card-grid" id="cardGrid"></div>
+    </div>
+  </div>
+
+  <!-- EDITOR PAGE -->
+  <div class="page" id="editorPage">
+    <div class="editor-layout">
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <button class="back-btn" onclick="goHome()">← 返回</button>
+          <span class="sidebar-type" id="sidebarType"></span>
+        </div>
+        <div class="sidebar-nav" id="sidebarNav"></div>
+      </div>
+
+      <!-- Middle -->
+      <div class="middle">
+        <div class="middle-top">
+
+          <!-- Template reference panel -->
+          <div class="template-ref" id="templateRef"></div>
+
+          <!-- Writing area -->
+          <div class="writing-area">
+            <div class="writing-toolbar">
+              <span id="wordStat">0 词</span>
+              <span id="timeStat">00:00</span>
+              <span class="toolbar-hint">点击蓝色短语可插入光标处</span>
+            </div>
+            <textarea id="essay" placeholder="在这里写你的邮件...&#10;&#10;建议结构：称呼 → 说明目的 → 描述情况 → 提出方案 → 感谢落款"></textarea>
+          </div>
+        </div>
+
+        <!-- AI Result panel -->
+        <div class="result-panel" id="resultPanel">
+          <div class="result-inner" id="resultInner"></div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="bottom-bar">
+          <span class="scenario-hint" id="scenarioHint"></span>
+          <div class="spacer"></div>
+          <button class="btn-secondary" onclick="clearAll()">清除</button>
+          <button class="btn-primary" id="gradeBtn" onclick="gradeEssay()">AI 批改</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
