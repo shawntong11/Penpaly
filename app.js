@@ -176,41 +176,21 @@ async function gradeEssay() {
     </div>`;
 
   const t = TEMPLATES[currentType];
-  const prompt = `你是一位专业的托福邮件写作评分老师，请对学生的作文评分并给出改进建议。
-
-邮件类型：${t.label}
-场景要求：${t.scenario}
-
-学生作文：
-${essay}
-
-请严格按以下JSON格式返回，不要输出任何其他内容，不要加markdown代码块：
-{
-  "total": 整数(0-30),
-  "content": 整数(0-10),
-  "language": 整数(0-10),
-  "organization": 整数(0-10),
-  "strengths": ["优点1（一句话）", "优点2（一句话）"],
-  "improvements": ["改进建议1（具体）", "改进建议2（具体）", "改进建议3（具体）"],
-  "example": "原句（学生写的有问题的一句话） → 改句（你的改写版本）"
-}`;
 
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const res = await fetch("/api/grade", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }]
+        essay,
+        type: t.label,
+        scenario: t.scenario
       })
     });
 
     if (!res.ok) throw new Error("API error " + res.status);
 
-    const data = await res.json();
-    const raw = data.content[0].text.replace(/```json|```/g, "").trim();
-    const result = JSON.parse(raw);
+    const result = await res.json();
     renderResult(result);
 
   } catch (err) {
